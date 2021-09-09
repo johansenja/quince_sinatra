@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "sinatra", "~> 2.1"
+  spec.add_dependency "sinatra-contrib", "~> 2.1"
   spec.add_dependency "quince", "~> 0.1"
 
   # For more information and examples about making a new gem, checkout our
