@@ -51,14 +51,16 @@ end
 Quince.middleware = Quince::SinatraMiddleware.new
 
 at_exit do
-  if Object.const_defined? "Sinatra::Reloader"
-    app_dir = Pathname(File.expand_path($0)).dirname.to_s
-    $LOADED_FEATURES.each do |f|
-      next unless f.start_with? app_dir
+  if $!.nil? || ($!.is_a?(SystemExit) && $!.success?)
+    if Object.const_defined? "Sinatra::Reloader"
+      app_dir = Pathname(File.expand_path($0)).dirname.to_s
+      $LOADED_FEATURES.each do |f|
+        next unless f.start_with? app_dir
 
-      Quince.underlying_app.also_reload f
+        Quince.underlying_app.also_reload f
+      end
     end
-  end
 
-  Quince.underlying_app.run!
+    Quince.underlying_app.run!
+  end
 end
