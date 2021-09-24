@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quince_sinatra (0.1.3)
+    quince_sinatra (0.1.4)
       quince (~> 0.1)
       rack-contrib (~> 2.3)
       sinatra (~> 2.1)
@@ -15,7 +15,7 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     oj (3.13.7)
-    quince (0.3.0)
+    quince (0.4.2)
       oj (~> 3.13)
       typed_struct (>= 0.1.4)
     rack (2.2.3)

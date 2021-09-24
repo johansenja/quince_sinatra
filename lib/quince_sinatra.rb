@@ -20,6 +20,7 @@ module Quince
           end
         end
         use Rack::JSONBodyParser
+        use Rack::Deflater
         set :public_folder, File.join(File.dirname(File.expand_path($0)), "public")
       end
     end
