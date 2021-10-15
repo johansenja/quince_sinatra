@@ -38,9 +38,20 @@ module Quince
       Quince::SinatraMiddleware.send(:routes)[[verb, route]] = handler
 
       Quince.underlying_app.public_send meth, route do
-        handler = Quince::SinatraMiddleware.send(:routes)[[verb, route]]
-        Quince.to_html(handler.call(params))
+        begin
+          handler = Quince::SinatraMiddleware.send(:routes)[[verb, route]]
+          Thread.current[:per_request_actions] = []
+          resp = Quince.to_html(handler.call(params))
+          Thread.current[:per_request_actions].each { |r| instance_exec &r }
+          resp
+        ensure
+          Thread.current[:per_request_actions] = nil
+        end
       end
+    end
+
+    def download_response(filename)
+      Thread.current[:per_request_actions] << -> { attachment filename }
     end
 
     private_class_method def self.routes
